@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+################################################################################
+# fips
+# auto-generated build script
+################################################################################
+
+set -e
+
+export FIPSREPO=modules/fips
+export EEREPO=modules/ee
+
+export EEREPO=/work/source/modules/ee
+export FIPSREPO=/work/source/modules/fips
+
+echo + RUN make -j +fips
+make -j +fips
+echo + RUN make $PKG+fips
+make $PKG+fips
+
+mkdir -p /work/artifacts
+echo + Copying artifact: pkg/packages/*
+cp pkg/packages/* /work/artifacts
+

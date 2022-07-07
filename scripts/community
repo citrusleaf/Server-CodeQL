@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+################################################################################
+# community
+# auto-generated build script
+################################################################################
+
+set -e
+
+export EEREPO=modules/ee
+export FIPSREPO=modules/fips
+
+export EEREPO=
+
+echo + RUN make -j
+make -j
+echo + RUN make $PKG
+make $PKG
+echo + RUN make tar
+make tar
+echo + RUN make source
+make source
+echo + RUN cp -p modules/telemetry/{README,TELEMETRY}.md
+cp -p modules/telemetry/{README,TELEMETRY}.md
+
+mkdir -p /work/artifacts
+echo + Copying artifact: pkg/packages/*
+cp pkg/packages/* /work/artifacts
+echo + Copying artifact: modules/telemetry/TELEMETRY.md
+cp modules/telemetry/TELEMETRY.md /work/artifacts
+

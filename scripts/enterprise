@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+################################################################################
+# enterprise
+# auto-generated build script
+################################################################################
+
+set -e
+
+export EEREPO=modules/ee
+export FIPSREPO=modules/fips
+
+export EEREPO=/work/source/modules/ee
+
+echo + RUN make -j +ee
+make -j +ee
+echo + RUN make $PKG+ee
+make $PKG+ee
+echo + RUN make source+ee
+make source+ee
+
+mkdir -p /work/artifacts
+echo + Copying artifact: pkg/packages/*
+cp pkg/packages/* /work/artifacts
+

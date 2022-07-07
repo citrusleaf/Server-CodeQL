@@ -1,0 +1,13 @@
+SHA          DATE                        AUTHOR            MESSAGE
+3c54d57be    Mon Jun 20 23:01:59 2022    Andrew Gooding    AER-6541 - set expression cond return type properly.
+f30f6642f    Tue May 31 23:06:57 2022    Andrew Gooding    AER-6539 - any comparison of expression trileans that include 'unknown' should return 'unknown'.
+95aa45586    Wed May 18 20:29:49 2022    Andrew Gooding    Whitespace tweak (trigger build).
+b0b844a03    Wed May 11 22:31:17 2022    Andrew Gooding    AER-6533 - included set index memory in 'memory-usage' ticker line's 'total-bytes' and 'used-pct'.
+
+Dependency: git@github.com:citrusleaf/aerospike-server-enterprise
+SHA         DATE                        AUTHOR            MESSAGE
+7f12dd4f    Wed May 18 15:24:23 2022    Andrew Gooding    AER-6536 - fixed EOF case and preserved errno value when logging TLS errors.
+
+Dependency: git@github.com:citrusleaf/aerospike-server-fips
+SHA        DATE                       AUTHOR            MESSAGE
+d8deffb    Tue Mar 1 08:53:55 2022    Thomas Lopatic    Rebuild.
