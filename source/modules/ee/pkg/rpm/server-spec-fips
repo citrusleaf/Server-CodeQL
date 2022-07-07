@@ -1,0 +1,1 @@
+%global __requires_exclude ^(libssl|libcrypto|libcurl|libldap|liblber)

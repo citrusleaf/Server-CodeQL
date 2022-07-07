@@ -1,0 +1,66 @@
+# Aerospike Server - Enterprise Edition
+# Main Make Targets Include File
+# Makefile.targets
+#
+# Enterprise Edition Targets:
+#
+#   make +ee        - Build with all Enterprise Edition features.
+#   make deb+ee     - Build Debian package with Enterprise Edition features.
+#   make rpm+ee     - Build RPM package with Enterprise Edition features.
+#   make tar+ee     - Build TAR package with Enterprise Edition features.
+#   make source+ee  - Build a source distribution "tar" file.
+
+DIST=pkg/dist
+SOURCE=$(DIST)/SOURCE
+
+$(LZ4_LIB):
+	cd $(LZ4) && \
+	make lib
+
+$(SNAPPY_LIB):
+	cd $(SNAPPY) && \
+	mkdir -p build && \
+	cd build && \
+	$(CMAKE) ../ && \
+	make
+
+$(ZSTD_LIB):
+	cd $(ZSTD) && \
+	make lib
+
+$(PMEM_LIB):
+	cd $(PMDK)/src/libpmem && \
+	$(TOOLSET) "make $(PMEM_FLAGS)"
+
+.PHONY: +ee deb+ee rpm+ee strip+ee tar+ee lib+ee
++ee deb+ee rpm+ee strip+ee tar+ee lib+ee: $(LZ4_LIB) $(SNAPPY_LIB) $(ZSTD_LIB) $(PMEM_LIB)
+	$(MAKE) $(@:%+ee=%) USE_EE=1 EDITION=enterprise OS=$(OS)
+
+.PHONY: source+ee
+source+ee:
+	@if [ -z "$(EEREPO)" ]; then \
+		echo "ERROR: EEREPO variable is not set. Exiting."; \
+		exit 1;\
+	fi
+	@if [ ! -d $(EEREPO) ]; then \
+		echo "ERROR: EEREPO should be set to the path of the client repository. Exiting."; \
+		exit 1;\
+	fi
+	bash pkg/src/git-cp-files.sh $(EEREPO) $(SOURCE)/aerospike-server/modules/ee 2
+	$(MAKE) -C pkg/src EDITION=enterprise
+
+.PHONY: +fips deb+fips rpm+fips strip+fips lib+fips
++fips deb+fips rpm+fips strip+fips lib+fips: $(LZ4_LIB) $(SNAPPY_LIB) $(ZSTD_LIB) $(PMEM_LIB)
+	@if [ -z "$(FIPSREPO)" ]; then \
+		echo "ERROR: FIPSREPO variable is not set. Exiting."; \
+		exit 1; \
+	fi
+	$(MAKE) $(@:%+fips=%) USE_EE=1 USE_EE_FIPS=1 EDITION=federal OS=$(OS)
+
+.PHONY: clean+ee
+clean+ee: clean
+	make -C $(LZ4)/lib clean
+	$(RM) -r $(SNAPPY)/build
+	make -C $(ZSTD)/lib clean
+	make -C $(PMDK)/src/libpmem clean $(PMEM_FLAGS)
+	$(RM) -r $(PMDK)/src/nondebug

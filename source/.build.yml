@@ -1,0 +1,56 @@
+name: aerospike-server
+
+environment:
+  EEREPO: modules/ee
+  FIPSREPO: modules/fips
+
+dependency:
+  - url: git@github.com:citrusleaf/aerospike-server-enterprise
+    dir: $EEREPO
+  - url: git@github.com:citrusleaf/aerospike-server-fips
+    dir: $FIPSREPO
+
+container:
+  - base:
+      - docker.qe.aerospike.com/build/aerospike-server:amazonlinux-1
+      - docker.qe.aerospike.com/build/aerospike-server:amazonlinux-2
+      - docker.qe.aerospike.com/build/aerospike-server:centos-7
+      - docker.qe.aerospike.com/build/aerospike-server:rhel-8
+      - docker.qe.aerospike.com/build/aerospike-server:debian-9
+      - docker.qe.aerospike.com/build/aerospike-server:debian-10
+      - docker.qe.aerospike.com/build/aerospike-server:debian-11
+      - docker.qe.aerospike.com/build/aerospike-server:oraclelinux-7
+      - docker.qe.aerospike.com/build/aerospike-server:ubuntu-18.04
+      - docker.qe.aerospike.com/build/aerospike-server:ubuntu-20.04
+
+build:
+  - name: community
+    environment:
+      EEREPO:
+    script:
+      - make -j
+      - make $PKG
+      - make tar
+      - make source
+      - cp -p modules/telemetry/{README,TELEMETRY}.md
+    artifact:
+      - pkg/packages/*
+      - modules/telemetry/TELEMETRY.md
+  - name: enterprise
+    environment:
+      EEREPO: /work/source/$EEREPO
+    script:
+      - make -j +ee
+      - make $PKG+ee
+      - make source+ee
+    artifact:
+      - pkg/packages/*
+  - name: fips
+    environment:
+      EEREPO: /work/source/$EEREPO
+      FIPSREPO: /work/source/$FIPSREPO
+    script:
+      - make -j +fips
+      - make $PKG+fips
+    artifact:
+      - pkg/packages/*

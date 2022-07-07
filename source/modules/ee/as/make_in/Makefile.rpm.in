@@ -1,0 +1,30 @@
+# Aerospike EE Server RPM Make Include Commands
+# Makefile.rpm.in
+
+dist-ee: dist
+	install -pm 644 $(AS_EE)/etc/aerospike_all_flash$(CONF_VERSION).conf $(BUILD_ROOT)/etc/aerospike/sample/aerospike_all_flash.conf
+	install -pm 644 $(AS_EE)/etc/aerospike_xdr$(CONF_VERSION).conf $(BUILD_ROOT)/etc/aerospike/sample/aerospike_xdr.conf
+	cat $(AS_EE)/etc/README.sample.conf.md >> $(BUILD_ROOT)/etc/aerospike/sample/README.md
+ifeq ($(EDITION),federal)
+	install -p -D -m 755 $(FIPSREPO)/devel/bin/openssl $(OPT_AS)/bin
+	install -d $(OPT_AS)/lib/fips
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/libcrypto.so.1.0.0 $(OPT_AS)/lib/fips
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/libssl.so.1.0.0 $(OPT_AS)/lib/fips
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/liblber-2.5.so.0 $(OPT_AS)/lib/fips
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/libldap-2.5.so.0 $(OPT_AS)/lib/fips
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/libcurl.so.4 $(OPT_AS)/lib/fips
+	install -d $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/lib4758cca.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libaep.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libatalla.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libcapi.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libchil.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libcswift.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libgmp.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libgost.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libnuron.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libpadlock.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libsureware.so $(OPT_AS)/lib/fips/engines
+	install -p -D -m 644 $(FIPSREPO)/devel/lib/engines/libubsec.so $(OPT_AS)/lib/fips/engines
+endif
+	$(EEREPO)/bin/submodule-licenses $(EDITION) $(EEREPO) $(FIPSREPO) >> $(OPT_AS)/doc/LICENSE

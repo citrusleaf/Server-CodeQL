@@ -1,0 +1,58 @@
+#!/bin/bash
+
+EDITION=$1
+EEREPO=$2
+FIPSREPO=$3
+
+if [ "$EDITION" = federal ]; then
+echo curl
+echo ----
+echo
+cat $FIPSREPO/devel/CURL-COPYING
+echo
+echo --------------------------------------------------------------------------------
+echo
+echo OpenSSL
+echo -------
+echo
+cat $FIPSREPO/devel/OPENSSL-LICENSE
+echo
+echo --------------------------------------------------------------------------------
+echo
+echo OpenLDAP
+echo --------
+echo
+cat $FIPSREPO/devel/OPENLDAP-COPYRIGHT
+cat $FIPSREPO/devel/OPENLDAP-LICENSE
+echo
+echo --------------------------------------------------------------------------------
+echo
+fi
+
+echo libpmem
+echo -------
+echo
+cat $EEREPO/modules/pmdk/LICENSE
+echo
+echo --------------------------------------------------------------------------------
+echo
+echo LZ4
+echo ---
+echo
+cat $EEREPO/modules/lz4/lib/LICENSE
+echo
+echo --------------------------------------------------------------------------------
+echo
+echo Snappy
+echo ------
+echo
+cat $EEREPO/modules/snappy/COPYING
+echo
+echo --------------------------------------------------------------------------------
+echo
+echo Zstandard
+echo ---------
+echo
+cat $EEREPO/modules/zstd/LICENSE
+echo
+echo --------------------------------------------------------------------------------
