@@ -8,7 +8,7 @@ set -e
 export EEREPO=modules/ee
 export FIPSREPO=modules/fips
 
-export EEREPO=source/modules/ee
+export EEREPO=/home/runner/work/Server-CodeQL/Server-CodeQL/source/modules/ee
 
 echo + RUN make -j +ee
 make -j +ee
