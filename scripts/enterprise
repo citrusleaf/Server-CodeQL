@@ -17,6 +17,6 @@ make $PKG+ee
 echo + RUN make source+ee
 make source+ee
 
-mkdir -p ../artifacts
+mkdir -p /home/runner/work/Server-CodeQL/Server-CodeQL/artifacts
 echo + Copying artifact: pkg/packages/*
-cp pkg/packages/* ../artifacts
+cp pkg/packages/* /home/runner/work/Server-CodeQL/Server-CodeQL/artifacts

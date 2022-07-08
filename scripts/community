@@ -23,8 +23,8 @@ make source
 echo + RUN cp -p modules/telemetry/{README,TELEMETRY}.md
 cp -p modules/telemetry/{README,TELEMETRY}.md
 
-mkdir -p ../artifacts
+mkdir -p /home/runner/work/Server-CodeQL/Server-CodeQL/artifacts
 echo + Copying artifact: pkg/packages/*
-cp pkg/packages/* ../artifacts
+cp pkg/packages/* /home/runner/work/Server-CodeQL/Server-CodeQL/artifacts
 echo + Copying artifact: modules/telemetry/TELEMETRY.md
-cp modules/telemetry/TELEMETRY.md ../artifacts
+cp modules/telemetry/TELEMETRY.md /home/runner/work/Server-CodeQL/Server-CodeQL/artifacts
