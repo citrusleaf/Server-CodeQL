@@ -4,6 +4,7 @@
 # auto-generated build script
 ################################################################################
 
+
 set -e
 
 export EEREPO=modules/ee
@@ -22,9 +23,8 @@ make source
 echo + RUN cp -p modules/telemetry/{README,TELEMETRY}.md
 cp -p modules/telemetry/{README,TELEMETRY}.md
 
-mkdir -p /work/artifacts
+mkdir -p ../artifacts
 echo + Copying artifact: pkg/packages/*
-cp pkg/packages/* /work/artifacts
+cp pkg/packages/* ../artifacts
 echo + Copying artifact: modules/telemetry/TELEMETRY.md
-cp modules/telemetry/TELEMETRY.md /work/artifacts
-
+cp modules/telemetry/TELEMETRY.md ../artifacts

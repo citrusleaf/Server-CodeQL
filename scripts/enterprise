@@ -3,13 +3,12 @@
 # enterprise
 # auto-generated build script
 ################################################################################
-
 set -e
 
 export EEREPO=modules/ee
 export FIPSREPO=modules/fips
 
-export EEREPO=/work/source/modules/ee
+#export EEREPO=source/modules/ee
 
 echo + RUN make -j +ee
 make -j +ee
@@ -18,7 +17,6 @@ make $PKG+ee
 echo + RUN make source+ee
 make source+ee
 
-mkdir -p /work/artifacts
+mkdir -p ../artifacts
 echo + Copying artifact: pkg/packages/*
-cp pkg/packages/* /work/artifacts
-
+cp pkg/packages/* ../artifacts
