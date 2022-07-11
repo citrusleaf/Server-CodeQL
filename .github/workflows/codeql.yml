@@ -54,8 +54,10 @@ jobs:
         # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
     - name: Install dependencies
-      run: |
-       apt-get install -y build-essential checkinstall -y 
+      run: apt-get install -y build-essential checkinstall 
+      
+    - name: Dependencies   
+      run: | 
        apt-get install -y \
        automake autoconf libtool \
        cmake \
