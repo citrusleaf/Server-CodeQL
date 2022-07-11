@@ -55,7 +55,7 @@ jobs:
         # queries: security-extended,security-and-quality
     - name: Install dependencies
       run: |
-       apt-get install -y build-essential checkinstall \
+       apt-get install -y build-essential checkinstall -y 
        apt-get install -y \
        automake autoconf libtool \
        cmake \
